@@ -3,7 +3,8 @@ import os
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
+FACEBOOK_APP_ID="461508467254738"
+FACEBOOK_APP_SECRET=""
 ADMINS = (
     ('Qaysen', 'admin@qaysen.com'),
 )
@@ -123,9 +124,24 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'principal',
-    'south',
+    'django_facebook',
 )
-
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django_facebook.context_processors.facebook',
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+)
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
+FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
